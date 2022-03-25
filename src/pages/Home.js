@@ -1,3 +1,4 @@
+import Footer from '../layout/Footer'
 import Header from '../layout/Header'
 
 const Home = () => {
@@ -63,9 +64,7 @@ const Home = () => {
                     </div>
                 </section>
             </main>
-            <footer class="footer">
-                <p class="footer-text">Copyright 2020 Argent Bank</p>
-            </footer>
+            <Footer />
         </>
     )
 }
