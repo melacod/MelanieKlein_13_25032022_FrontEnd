@@ -1,5 +1,11 @@
 import Transaction from './Transaction'
 
+/**
+ * User key data transactions
+ * @component
+ * @category User
+ */
+
 const Transactions = () => {
     return (
         <div>

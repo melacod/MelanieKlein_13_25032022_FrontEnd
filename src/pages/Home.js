@@ -3,6 +3,12 @@ import Banner from '../layout/Banner'
 import Footer from '../layout/Footer'
 import Header from '../layout/Header'
 
+/**
+ * Home page
+ * @component
+ * @category Home
+ */
+
 const Home = () => {
     return (
         <>

@@ -1,3 +1,9 @@
+/**
+ * User key data cards
+ * @component
+ * @category SignIn
+ */
+
 const SignInModal = () => {
     return (
         <section class="sign-in-content">

@@ -1,3 +1,9 @@
+/**
+ * User key data card
+ * @component
+ * @category Home
+ */
+
 const Card = ({ src, presentation, details }) => {
     return (
         <>

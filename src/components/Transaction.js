@@ -1,3 +1,9 @@
+/**
+ * User key data transaction
+ * @component
+ * @category User
+ */
+
 const Transaction = ({ title, balance, state }) => {
     return (
         <section class="account">

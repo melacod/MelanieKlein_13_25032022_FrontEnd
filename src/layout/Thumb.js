@@ -1,3 +1,9 @@
+/**
+ * Page thumb
+ * @component
+ * @category Common
+ */
+
 const Thumb = () => {
     return (
         <div class="hero-content">

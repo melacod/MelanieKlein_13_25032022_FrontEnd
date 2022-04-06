@@ -1,3 +1,9 @@
+/**
+ * Page navigation
+ * @component
+ * @category Common
+ */
+
 const Navigation = () => {
     return (
         <div>

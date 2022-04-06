@@ -1,3 +1,9 @@
+/**
+ * Argent Bank icon
+ * @component
+ * @category Icons
+ */
+
 const Logo = () => {
     return (
         <a class="main-nav-logo" href="./index.html">

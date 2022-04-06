@@ -2,6 +2,12 @@ import Footer from '../layout/Footer'
 import Header from '../layout/Header'
 import Transactions from '../components/Transactions'
 
+/**
+ * User page
+ * @component
+ * @category User
+ */
+
 const User = () => {
     return (
         <>

@@ -3,6 +3,12 @@ import Home from './pages/Home'
 import SignIn from './pages/SignIn'
 import User from './pages/User'
 
+/**
+ * Application routes
+ * @component
+ * @category Common
+ */
+
 const AppRouter = () => {
     return (
         <Router>

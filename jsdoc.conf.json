@@ -1,0 +1,31 @@
+{
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": [
+            "jsdoc",
+            "closure"
+        ]
+    },
+    "source": {
+        "include": [
+            "src"
+        ],
+        "includePattern": "\\.js$"
+    },
+    "plugins": [
+        "plugins/markdown",
+        "node_modules/better-docs/component",
+        "node_modules/better-docs/category"
+    ],
+    "templates": {
+        "better-docs": {
+            "name": "Argent Bank components"
+        }
+    },
+    "opts": {
+        "destination": "jsdoc",
+        "recurse": true,
+        "readme": "README.md",
+        "template": "node_modules/better-docs"
+    }
+}

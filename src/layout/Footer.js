@@ -1,3 +1,9 @@
+/**
+ * Page footer
+ * @component
+ * @category Common
+ */
+
 const Footer = () => {
     return (
         <div class="footer">
