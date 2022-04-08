@@ -6,10 +6,9 @@ import Navigation from './Navigation'
  * @component
  * @category Common
  */
-
 const Header = () => {
     return (
-        <nav class="main-nav">
+        <nav className="main-nav">
             <Logo />
             <Navigation />
         </nav>

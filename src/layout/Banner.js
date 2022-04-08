@@ -8,7 +8,7 @@ import Thumb from './Thumb'
 
 const Banner = () => {
     return (
-        <div class="hero">
+        <div className="hero">
             <Thumb />
         </div>
     )

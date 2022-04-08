@@ -1,6 +1,8 @@
 import Footer from '../layout/Footer'
 import Header from '../layout/Header'
 import Transactions from '../components/Transactions'
+import { useSelector } from 'react-redux'
+import { selectUser } from '../select'
 
 /**
  * User page
@@ -9,19 +11,21 @@ import Transactions from '../components/Transactions'
  */
 
 const User = () => {
+    const user = useSelector(selectUser)
+
     return (
         <>
             <Header />
-            <main class="main bg-dark">
-                <div class="header">
+            <main className="main bg-dark">
+                <div className="header">
                     <h1>
                         Welcome back
                         <br />
-                        Tony Jarvis!
+                        {user.firstname} {user.lastname}!
                     </h1>
-                    <button class="edit-button">Edit Name</button>
+                    <button className="edit-button">Edit Name</button>
                 </div>
-                <h2 class="sr-only">Accounts</h2>
+                <h2 className="sr-only">Accounts</h2>
                 <Transactions />
             </main>
             <Footer />

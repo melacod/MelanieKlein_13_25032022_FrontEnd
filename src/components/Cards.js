@@ -8,8 +8,8 @@ import Card from './Card'
 
 const Cards = () => {
     return (
-        <div class="features">
-            <h2 class="sr-only">Features</h2>
+        <div className="features">
+            <h2 className="sr-only">Features</h2>
             <Card
                 src="./img/icon-chat.png"
                 presentation="You are our #1 priority"

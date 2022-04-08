@@ -8,7 +8,7 @@ import SignInModal from '../components/SignInModal'
 
 const MainBlack = () => {
     return (
-        <main class="main bg-dark">
+        <main className="main bg-dark">
             <SignInModal />
         </main>
     )
