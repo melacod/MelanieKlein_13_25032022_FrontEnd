@@ -2,6 +2,9 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { signin } from '../store'
+import { useSelector } from 'react-redux'
+import { selectUser } from '../select'
+import { useEffect } from 'react'
 
 /**
  * User key data cards
@@ -12,8 +15,19 @@ const SignInModal = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    const user = useSelector(selectUser)
+
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [rememberMe, setRememberMe] = useState(false)
+
+    useEffect(() => {
+        if (user.rememberMe) {
+            setUsername(user.username)
+            setPassword(user.password)
+            setRememberMe(user.rememberMe)
+        }
+    }, [user])
 
     const usernameChange = (event) => {
         setUsername(event.target.value)
@@ -21,6 +35,10 @@ const SignInModal = () => {
 
     const passwordChange = (event) => {
         setPassword(event.target.value)
+    }
+
+    const rememberMeChange = (event) => {
+        setRememberMe(event.target.checked)
     }
 
     const handleSubmit = (event) => {
@@ -33,6 +51,7 @@ const SignInModal = () => {
                 password: password,
                 firstname: 'Mélanie',
                 lastname: 'Klein',
+                rememberMe: rememberMe,
             })
         )
         navigate('/user')
@@ -49,6 +68,7 @@ const SignInModal = () => {
                         type="text"
                         id="username"
                         onChange={usernameChange}
+                        defaultValue={username}
                     />
                 </div>
                 <div className="input-wrapper">
@@ -57,10 +77,16 @@ const SignInModal = () => {
                         type="password"
                         id="password"
                         onChange={passwordChange}
+                        defaultValue={password}
                     />
                 </div>
                 <div className="input-remember">
-                    <input type="checkbox" id="remember-me" />
+                    <input
+                        type="checkbox"
+                        id="remember-me"
+                        onChange={rememberMeChange}
+                        checked={rememberMe}
+                    />
                     <label htmlFor="remember-me">Remember me</label>
                 </div>
                 <button className="sign-in-button">Sign In</button>

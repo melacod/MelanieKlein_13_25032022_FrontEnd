@@ -9,6 +9,7 @@ const initialState = {
         password: null,
         firstname: null,
         lastname: null,
+        rememberMe: false,
     },
 }
 
@@ -27,6 +28,13 @@ export const signout = () => ({
 
 function reducer(state = initialState, action) {
     if (action.type === 'signout') {
+        if (state.user.rememberMe) {
+            return produce(state, (draft) => {
+                draft.user.connected = false
+                draft.user.firstname = null
+                draft.user.lastname = null
+            })
+        }
         return initialState
     }
     if (action.type === 'signin') {
