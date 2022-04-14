@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { selectUser } from '../select'
-import { signout } from '../store'
+import { signout } from '../features/user'
 
 /**
  * Page navigation
@@ -22,12 +22,12 @@ const Navigation = () => {
         navigate('/')
     }
 
-    if (user && user.connected) {
+    if (user && user.token) {
         return (
             <div>
                 <Link className="main-nav-item" to="/user">
                     <i className="fa fa-user-circle"></i>
-                    {user.username}
+                    {user.firstName}
                 </Link>
                 <a className="main-nav-item" href="/" onClick={handleSignout}>
                     <i className="fa fa-sign-out"></i>

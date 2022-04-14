@@ -1,56 +1,16 @@
-import { createStore } from 'redux'
-import produce from 'immer'
+import { configureStore } from '@reduxjs/toolkit'
+import userReducer from './features/user'
 
-// state
-const initialState = {
-    user: {
-        connected: false,
-        username: null,
-        password: null,
-        firstname: null,
-        lastname: null,
-        rememberMe: false,
+// on définit le store en utilisant le toolkit redux
+const store = configureStore({
+    reducer: {
+        user: userReducer,
     },
-}
-
-// actions creators
-
-export const signin = (user) => ({
-    type: 'signin',
-    payload: { user: user },
 })
 
-export const signout = () => ({
-    type: 'signout',
-})
-
-// reducer
-
-function reducer(state = initialState, action) {
-    if (action.type === 'signout') {
-        if (state.user.rememberMe) {
-            return produce(state, (draft) => {
-                draft.user.connected = false
-                draft.user.firstname = null
-                draft.user.lastname = null
-            })
-        }
-        return initialState
-    }
-    if (action.type === 'signin') {
-        return produce(state, (draft) => {
-            draft.user = action.payload.user
-        })
-    }
-    return state
-}
-
-// store
-
-export const store = createStore(reducer)
-
-// follow state evolution
-
+// on loggue les changements de l'état dans la console à chaque modification
 store.subscribe(() => {
     console.log('New state', store.getState())
 })
+
+export default store

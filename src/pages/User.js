@@ -21,7 +21,7 @@ const User = () => {
                     <h1>
                         Welcome back
                         <br />
-                        {user.firstname} {user.lastname}!
+                        {user.firstName} {user.lastName}!
                     </h1>
                     <button className="edit-button">Edit Name</button>
                 </div>

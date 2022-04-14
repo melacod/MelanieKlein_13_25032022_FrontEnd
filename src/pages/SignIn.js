@@ -1,7 +1,6 @@
 import SignInModal from '../components/SignInModal'
 import Footer from '../layout/Footer'
 import Header from '../layout/Header'
-import MainBlack from '../layout/MainBlack'
 
 /**
  * SignIn page
