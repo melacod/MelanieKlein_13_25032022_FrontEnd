@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
-import SignIn from './pages/SignIn'
-import User from './pages/User'
+import Login from './pages/Login'
+import Profile from './pages/Profile'
 
 /**
  * Application routes
@@ -14,8 +14,8 @@ const AppRouter = () => {
         <Router>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/signin" element={<SignIn />} />
-                <Route path="/user" element={<User />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/profile" element={<Profile />} />
             </Routes>
         </Router>
     )

@@ -1,23 +1,23 @@
-import SignInModal from '../components/SignInModal'
+import LoginForm from '../components/LoginForm'
 import Footer from '../layout/Footer'
 import Header from '../layout/Header'
 
 /**
- * SignIn page
+ * Login page
  * @component
- * @category SignIn
+ * @category Login
  */
 
-const SignIn = () => {
+const Login = () => {
     return (
         <>
             <Header />
             <main className="main bg-dark">
-                <SignInModal />
+                <LoginForm />
             </main>
             <Footer />
         </>
     )
 }
 
-export default SignIn
+export default Login

@@ -7,11 +7,11 @@ import { useEffect } from 'react'
 import { signin } from '../features/user'
 
 /**
- * User key data cards
+ * User signin form
  * @component
  * @category SignIn
  */
-const SignInModal = () => {
+const LoginForm = () => {
     const dispatch = useDispatch()
 
     const user = useSelector(selectUser)
@@ -48,7 +48,7 @@ const SignInModal = () => {
     return (
         <>
             {user && user.token ? (
-                <Navigate replace to="/user" />
+                <Navigate replace to="/profile" />
             ) : (
                 <section className="sign-in-content">
                     <i className="fa fa-user-circle sign-in-icon"></i>
@@ -96,4 +96,4 @@ const SignInModal = () => {
     )
 }
 
-export default SignInModal
+export default LoginForm

@@ -5,12 +5,12 @@ import { useSelector } from 'react-redux'
 import { selectUser } from '../select'
 
 /**
- * User page
+ * User profile page
  * @component
- * @category User
+ * @category Profile
  */
 
-const User = () => {
+const Profile = () => {
     const user = useSelector(selectUser)
 
     return (
@@ -33,4 +33,4 @@ const User = () => {
     )
 }
 
-export default User
+export default Profile

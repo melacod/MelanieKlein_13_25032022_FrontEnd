@@ -39,7 +39,7 @@ const Navigation = () => {
 
     return (
         <div>
-            <Link to="/signin" className="main-nav-item">
+            <Link to="/login" className="main-nav-item">
                 <i className="fa fa-user-circle"></i>
                 Sign In
             </Link>

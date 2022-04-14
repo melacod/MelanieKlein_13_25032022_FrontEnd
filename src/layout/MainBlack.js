@@ -1,4 +1,4 @@
-import SignInModal from '../components/SignInModal'
+import LoginForm from '../components/LoginForm'
 
 /**
  * Page mainBlack
@@ -9,7 +9,7 @@ import SignInModal from '../components/SignInModal'
 const MainBlack = () => {
     return (
         <main className="main bg-dark">
-            <SignInModal />
+            <LoginForm />
         </main>
     )
 }
