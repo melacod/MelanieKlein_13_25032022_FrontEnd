@@ -3,26 +3,25 @@ import { selectUser } from '../select'
 
 const BACKEND_URL = 'http://localhost:3001/api/v1'
 
-// user state
-
 const initialState = {
-    // user data loading
-    status: 'void',
-    message: null,
-    error: null,
-    // user data
-    email: null,
-    password: null,
+    process: {
+        status: 'void',
+        message: null,
+        error: null,
+    },
+    data: {
+        email: null,
+        password: null,
+        firstName: null,
+        lastName: null,
+    },
     token: null,
-    firstName: null,
-    lastName: null,
-    rememberMe: false,
 }
 
 export function signin(email, password, rememberMe) {
     return async (dispatch, getState) => {
         // on regarde le statut actuel
-        const status = selectUser(getState()).status
+        const status = selectUser(getState()).process.status
 
         if (status === 'pending' || status === 'updating') {
             // on stop la fonction pour éviter de récupérer plusieurs fois la même donnée
@@ -41,20 +40,31 @@ export function signin(email, password, rememberMe) {
                     'Content-Type': 'application/json',
                 },
                 // l'API nécessite email/password
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ email: email, password: password }),
             })
 
             // on attend la réponse de login et on la loggue dans la console
-            let dataLogin = await responseLogin.json()
+            const dataLogin = await responseLogin.json()
             console.log('dataLogin', dataLogin)
 
             // si la réponse n'est pas bonne (statut différent de 200), on arrête
             // la réponse contient le message indiquant pourquoi le staut n'est pas bon
             //      exemples : mauvais mot de passe, utilisateur qui n'existe pas, ...
             if (dataLogin.status !== 200) {
-                dispatch(actions.resolved(dataLogin))
+                dispatch(
+                    actions.resolved({
+                        respponseStatus: dataLogin.status,
+                        process: {
+                            message: dataLogin.message,
+                        },
+                    })
+                )
                 return
             }
+
+            // on ajoute Bearer et un prefixe factice (dummy) pour que le backend fonctionne
+            // le backend récupère le token d'autorization avec: headers.authorization.split('Bearer')[1].trim()
+            const token = 'dummyBearer' + dataLogin.body.token
 
             // on utilise fetch pour faire la requête profile utilisateur
             const responseProfile = await fetch(BACKEND_URL + '/user/profile', {
@@ -62,8 +72,8 @@ export function signin(email, password, rememberMe) {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
-                    // on passe le token autorisation récupéré de la réponse de login
-                    Authorization: dataLogin.body.token,
+                    // on passe le token autorisation
+                    Authorization: token,
                 },
             })
 
@@ -78,16 +88,29 @@ export function signin(email, password, rememberMe) {
             //  - le password et rememberMe (paramètres de la function)
             dispatch(
                 actions.resolved({
-                    status: dataProfile.status,
-                    message: dataProfile.message,
-                    ...dataLogin.body,
-                    ...dataProfile.body,
-                    password,
-                    rememberMe,
+                    respponseStatus: dataProfile.status,
+                    process: {
+                        message: dataProfile.message,
+                        error: null,
+                    },
+                    data: {
+                        email: email,
+                        password: password,
+                        firstName: dataProfile.body.firstName,
+                        lastName: dataProfile.body.lastName,
+                    },
+                    token: token,
                 })
             )
         } catch (error) {
-            dispatch(actions.rejected(error.message))
+            console.log(error)
+            dispatch(
+                actions.rejected({
+                    process: {
+                        error: error.message,
+                    },
+                })
+            )
         }
     }
 }
@@ -101,28 +124,71 @@ export function signout() {
     }
 }
 
+export function updateProfile(firstName, lastName) {
+    return async (dispatch, getState) => {
+        const user = selectUser(getState())
+        if (user && user.token) {
+            // on utilise fetch pour faire la requête de mise a jour du profile utilisateur
+            const responseUpdateProfile = await fetch(
+                BACKEND_URL + '/user/profile',
+                {
+                    method: 'PUT',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                        // on passe le token autorisation
+                        Authorization: user.token,
+                    },
+                    // l'API nécessite firstName/lastName
+                    body: JSON.stringify({
+                        firstName: firstName,
+                        lastName: lastName,
+                    }),
+                }
+            )
+
+            // on attend la réponse de profile et on la loggue dans la console
+            const dataUpdateProfile = await responseUpdateProfile.json()
+            console.log('dataUpdateProfile', dataUpdateProfile)
+
+            dispatch(
+                actions.update({
+                    respponseStatus: dataUpdateProfile.status,
+                    process: {
+                        message: dataUpdateProfile.message,
+                    },
+                    data: {
+                        firstName: firstName,
+                        lastName: lastName,
+                    },
+                })
+            )
+        }
+    }
+}
+
 const { actions, reducer } = createSlice({
     name: 'user',
     initialState,
     reducers: {
         // fetching action & reducer
         fetching: (draft) => {
-            if (draft.status === 'void') {
+            if (draft.process.status === 'void') {
                 // on passe en pending
-                draft.status = 'pending'
+                draft.process.status = 'pending'
                 return
             }
             // si le statut est rejected
-            if (draft.status === 'rejected') {
+            if (draft.process.status === 'rejected') {
                 // on supprime l'erreur et on passe en pending
-                draft.error = null
-                draft.status = 'pending'
+                draft.process.error = null
+                draft.process.status = 'pending'
                 return
             }
             // si le statut est resolved
-            if (draft.status === 'resolved') {
+            if (draft.process.status === 'resolved') {
                 // on passe en updating (requête en cours mais des données sont déjà présentent)
-                draft.status = 'updating'
+                draft.process.status = 'updating'
                 return
             }
             // sinon l'action est ignorée
@@ -131,23 +197,28 @@ const { actions, reducer } = createSlice({
         // resolved action & reducer
         resolved: (draft, action) => {
             // si la requête est en cours
-            if (draft.status === 'pending' || draft.status === 'updating') {
+            if (
+                draft.process.status === 'pending' ||
+                draft.process.status === 'updating'
+            ) {
                 // on passe en resolved et on sauvegarde les données si on le statut ok (200)
-                draft.message = action.payload.message
-                draft.email = null
-                draft.password = null
+                draft.process.status = 'resolved'
+                draft.process.message = null
+                draft.process.error = null
+                draft.data.email = null
+                draft.data.password = null
+                draft.data.firstName = null
+                draft.data.lastName = null
                 draft.token = null
-                draft.firstName = null
-                draft.lastName = null
-                if (action.payload.status === 200) {
-                    draft.email = action.payload.email
-                    draft.password = action.payload.password
+                if (action.payload.respponseStatus === 200) {
+                    draft.data.email = action.payload.data.email
+                    draft.data.password = action.payload.data.password
+                    draft.data.firstName = action.payload.data.firstName
+                    draft.data.lastName = action.payload.data.lastName
                     draft.token = action.payload.token
-                    draft.firstName = action.payload.firstName
-                    draft.lastName = action.payload.lastName
-                    draft.rememberMe = action.payload.rememberMe
+                } else {
+                    draft.process.message = action.payload.process.message
                 }
-                draft.status = 'resolved'
                 return
             }
             // sinon l'action est ignorée
@@ -156,31 +227,42 @@ const { actions, reducer } = createSlice({
         // rejected action & reducer
         rejected: (draft, action) => {
             // si la requête est en cours
-            if (draft.status === 'pending' || draft.status === 'updating') {
+            if (
+                draft.process.status === 'pending' ||
+                draft.process.status === 'updating'
+            ) {
                 // on passe en rejected, on sauvegarde l'erreur et on supprime les données
-                draft.status = 'rejected'
-                draft.message = null
-                draft.error = action.payload
-
-                draft.email = null
-                draft.password = null
+                draft.process.status = 'rejected'
+                draft.process.message = null
+                draft.process.error = action.payload.process.error
+                draft.data.email = null
+                draft.data.password = null
+                draft.data.firstName = null
+                draft.data.lastName = null
                 draft.token = null
-                draft.firstName = null
-                draft.lastName = null
                 return
             }
             // sinon l'action est ignorée
             return
         },
-        signout: (draft, action) => {
-            draft.status = 'void'
-            draft.message = null
-            draft.error = null
-            draft.email = draft.rememberMe ? draft.email : null
-            draft.password = draft.rememberMe ? draft.password : null
+        signout: (draft) => {
+            draft.process.status = 'void'
+            draft.process.message = null
+            draft.process.error = null
+            draft.data.email = null
+            draft.data.password = null
+            draft.data.firstName = null
+            draft.data.lastName = null
             draft.token = null
-            draft.firstName = null
-            draft.lastName = null
+        },
+        update: (draft, action) => {
+            if (action.payload.respponseStatus === 200) {
+                draft.process.message = null
+                draft.data.firstName = action.payload.data.firstName
+                draft.data.lastName = action.payload.data.lastName
+            } else {
+                draft.process.message = action.payload.process.message
+            }
         },
     },
 })

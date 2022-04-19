@@ -21,12 +21,12 @@ const LoginForm = () => {
     const [rememberMe, setRememberMe] = useState(false)
 
     useEffect(() => {
-        if (user.rememberMe) {
-            setEmail(user.email)
-            setPassword(user.password)
-            setRememberMe(user.rememberMe)
+        if (localStorage.getItem('user.email')) {
+            setEmail(localStorage.getItem('user.email'))
+            setPassword(localStorage.getItem('user.password'))
+            setRememberMe(true)
         }
-    }, [user])
+    }, [])
 
     const emailChange = (event) => {
         setEmail(event.target.value)
@@ -42,7 +42,14 @@ const LoginForm = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        dispatch(signin(email, password, rememberMe))
+        if (rememberMe) {
+            localStorage.setItem('user.email', email)
+            localStorage.setItem('user.password', password)
+        } else {
+            localStorage.removeItem('user.email')
+            localStorage.removeItem('user.password')
+        }
+        dispatch(signin(email, password))
     }
 
     return (
@@ -82,10 +89,14 @@ const LoginForm = () => {
                             <label htmlFor="remember-me">Remember me</label>
                         </div>
                         <button className="sign-in-button">Sign In</button>
-                        {user && user.message ? (
-                            <div style={{ color: 'red' }}>{user.message}</div>
-                        ) : user && user.error ? (
-                            <div style={{ color: 'darkred' }}>{user.error}</div>
+                        {user && user.process.message ? (
+                            <div style={{ color: 'red' }}>
+                                {user.process.message}
+                            </div>
+                        ) : user && user.process.error ? (
+                            <div style={{ color: 'darkred' }}>
+                                {user.process.error}
+                            </div>
                         ) : (
                             ''
                         )}

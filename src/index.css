@@ -289,3 +289,40 @@ body {
         width: 200px;
     }
 }
+
+/* Edit profile styling */
+
+.edit-profile {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-between;
+}
+
+.edit-profile div {
+    width: 48%;
+    margin-bottom: 20px;
+}
+
+.edit-profile div input {
+    padding: 10px;
+}
+
+.edit-profile-left {
+    text-align: left;
+}
+
+.edit-profile-right {
+    text-align: right;
+}
+
+.edit-profile div button {
+    padding: 8px;
+    width: 100px;
+    border: 2px solid #00bc77;
+    background-color: white;
+    color: #00bc77;
+    font-weight: bold;
+}

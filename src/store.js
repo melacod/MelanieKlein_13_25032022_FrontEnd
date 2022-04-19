@@ -8,7 +8,7 @@ const store = configureStore({
     },
 })
 
-// on loggue les changements de l'état dans la console à chaque modification
+// on logue les changements de l'état dans la console à chaque modification
 store.subscribe(() => {
     console.log('New state', store.getState())
 })

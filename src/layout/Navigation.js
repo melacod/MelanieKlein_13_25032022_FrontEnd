@@ -27,7 +27,7 @@ const Navigation = () => {
             <div>
                 <Link className="main-nav-item" to="/user">
                     <i className="fa fa-user-circle"></i>
-                    {user.firstName}
+                    {user.data.firstName}
                 </Link>
                 <a className="main-nav-item" href="/" onClick={handleSignout}>
                     <i className="fa fa-sign-out"></i>
