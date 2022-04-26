@@ -2,7 +2,7 @@ import Logo from '../assets/Logo'
 import Navigation from './Navigation'
 
 /**
- * Page header
+ * Header
  * @component
  * @category Common
  */

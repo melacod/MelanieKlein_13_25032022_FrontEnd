@@ -8,7 +8,6 @@ import Header from '../layout/Header'
  * @component
  * @category Home
  */
-
 const Home = () => {
     return (
         <>

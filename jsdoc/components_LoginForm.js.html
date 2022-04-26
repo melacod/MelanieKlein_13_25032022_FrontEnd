@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> layout/Thumb.js</title>
+  <title> components/LoginForm.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>layout/Thumb.js</h1>
+                    <h1>components/LoginForm.js</h1>
                 </header>
                 
 
@@ -89,26 +89,121 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Home thumb
+            <pre class="prettyprint source linenums"><code>import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { Navigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { selectUser } from '../select'
+import { useEffect } from 'react'
+import { signin } from '../features/user'
+
+/**
+ * User login form
  * @component
- * @category Home
+ * @category Login
  */
-const Thumb = () => {
+const LoginForm = () => {
+    const dispatch = useDispatch()
+
+    // get the user from the store
+    const user = useSelector(selectUser)
+
+    // state variables for the form
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [rememberMe, setRememberMe] = useState(false)
+
+    // initialize form fields with values saved in local storage if any
+    useEffect(() => {
+        if (localStorage.getItem('user.email')) {
+            setEmail(localStorage.getItem('user.email'))
+            setPassword(localStorage.getItem('user.password'))
+            setRememberMe(true)
+        }
+    }, [])
+
+    // handle email change event
+    const emailChange = (event) => {
+        setEmail(event.target.value)
+    }
+
+    // handle password change event
+    const passwordChange = (event) => {
+        setPassword(event.target.value)
+    }
+
+    // handle remember me change event
+    const rememberMeChange = (event) => {
+        setRememberMe(event.target.checked)
+    }
+
+    // handle login action (form submit)
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        // if remember me is choosen, save values to local storage
+        // else remove values from local storage
+        if (rememberMe) {
+            localStorage.setItem('user.email', email)
+            localStorage.setItem('user.password', password)
+        } else {
+            localStorage.removeItem('user.email')
+            localStorage.removeItem('user.password')
+        }
+        dispatch(signin(email, password))
+    }
+
+    // if a user is connected, go to profile page
+    if (user &amp;&amp; user.token) {
+        return &lt;Navigate replace to="/profile" />
+    }
+
+    // if no user connected, show login form
     return (
-        &lt;div className="hero-content">
-            &lt;h2 className="sr-only">Promoted Content&lt;/h2>
-            &lt;p className="subtitle">No fees.&lt;/p>
-            &lt;p className="subtitle">No minimum deposit.&lt;/p>
-            &lt;p className="subtitle">High interest rates.&lt;/p>
-            &lt;p className="text">
-                Open a savings account with Argent Bank today!
-            &lt;/p>
-        &lt;/div>
+        &lt;section className="sign-in-content">
+            &lt;i className="fa fa-user-circle sign-in-icon">&lt;/i>
+            &lt;h1>Sign In&lt;/h1>
+            &lt;form onSubmit={handleSubmit}>
+                &lt;div className="input-wrapper">
+                    &lt;label htmlFor="username">Username&lt;/label>
+                    &lt;input
+                        type="text"
+                        id="username"
+                        onChange={emailChange}
+                        defaultValue={email}
+                    />
+                &lt;/div>
+                &lt;div className="input-wrapper">
+                    &lt;label htmlFor="password">Password&lt;/label>
+                    &lt;input
+                        type="password"
+                        id="password"
+                        onChange={passwordChange}
+                        defaultValue={password}
+                    />
+                &lt;/div>
+                &lt;div className="input-remember">
+                    &lt;input
+                        type="checkbox"
+                        id="remember-me"
+                        onChange={rememberMeChange}
+                        checked={rememberMe}
+                    />
+                    &lt;label htmlFor="remember-me">Remember me&lt;/label>
+                &lt;/div>
+                &lt;button className="sign-in-button">Sign In&lt;/button>
+                {user &amp;&amp; user.process.message ? (
+                    &lt;div style={{ color: 'red' }}>{user.process.message}&lt;/div>
+                ) : user &amp;&amp; user.process.error ? (
+                    &lt;div style={{ color: 'darkred' }}>{user.process.error}&lt;/div>
+                ) : (
+                    ''
+                )}
+            &lt;/form>
+        &lt;/section>
     )
 }
 
-export default Thumb
+export default LoginForm
 </code></pre>
         </article>
     </section>

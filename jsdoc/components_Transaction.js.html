@@ -72,7 +72,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Common</h2><h3>Components</h3><ul><li><a href="App.html">App</a></li><li><a href="AppRouter.html">AppRouter</a></li><li><a href="Banner.html">Banner</a></li><li><a href="Footer.html">Footer</a></li><li><a href="Header.html">Header</a></li><li><a href="MainBlack.html">MainBlack</a></li><li><a href="Navigation.html">Navigation</a></li><li><a href="Thumb.html">Thumb</a></li></ul></div><div class="category"><h2>Home</h2><h3>Components</h3><ul><li><a href="Card.html">Card</a></li><li><a href="Cards.html">Cards</a></li><li><a href="Home.html">Home</a></li></ul></div><div class="category"><h2>Icons</h2><h3>Components</h3><ul><li><a href="Logo.html">Logo</a></li></ul></div><div class="category"><h2>SignIn</h2><h3>Components</h3><ul><li><a href="SignIn.html">SignIn</a></li><li><a href="SignInModal.html">SignInModal</a></li></ul></div><div class="category"><h2>User</h2><h3>Components</h3><ul><li><a href="Transaction.html">Transaction</a></li><li><a href="Transactions.html">Transactions</a></li><li><a href="User.html">User</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Common</h2><h3>Components</h3><ul><li><a href="Banner.html">Banner</a></li><li><a href="Footer.html">Footer</a></li><li><a href="Header.html">Header</a></li><li><a href="MainBlack.html">MainBlack</a></li><li><a href="Navigation.html">Navigation</a></li></ul></div><div class="category"><h2>Home</h2><h3>Components</h3><ul><li><a href="Card.html">Card</a></li><li><a href="Cards.html">Cards</a></li><li><a href="Home.html">Home</a></li><li><a href="Thumb.html">Thumb</a></li></ul></div><div class="category"><h2>Icons</h2><h3>Components</h3><ul><li><a href="Logo.html">Logo</a></li></ul></div><div class="category"><h2>Login</h2><h3>Components</h3><ul><li><a href="Login.html">Login</a></li><li><a href="LoginForm.html">LoginForm</a></li></ul></div><div class="category"><h2>Main</h2><h3>Components</h3><ul><li><a href="App.html">App</a></li><li><a href="AppRouter.html">AppRouter</a></li></ul></div><div class="category"><h2>Selector</h2><h3>Global</h3><ul><li><a href="global.html#selectUser">selectUser</a></li></ul></div><div class="category"><h2>Store</h2><h3>Global</h3><ul><li><a href="global.html#store">store</a></li></ul></div><div class="category"><h2>Url</h2><h3>Global</h3><ul><li><a href="global.html#BACKEND_URL">BACKEND_URL</a></li></ul></div><div class="category"><h2>User</h2><h3>Components</h3><ul><li><a href="Profile.html">Profile</a></li><li><a href="Transaction.html">Transaction</a></li><li><a href="Transactions.html">Transactions</a></li></ul></div><div class="category"><h2>UserState</h2><h3>Global</h3><ul><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#signin">signin</a></li><li><a href="global.html#signout">signout</a></li><li><a href="global.html#updateProfile">updateProfile</a></li></ul></div>
                 
             </nav>
         </div>
@@ -90,21 +90,22 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * User key data transaction
+ * User transaction
  * @component
  * @category User
  */
-
 const Transaction = ({ title, balance, state }) => {
     return (
-        &lt;section class="account">
-            &lt;div class="account-content-wrapper">
-                &lt;h3 class="account-title">{title}&lt;/h3>
-                &lt;p class="account-amount">{balance}&lt;/p>
-                &lt;p class="account-amount-description">{state}&lt;/p>
+        &lt;section className="account">
+            &lt;div className="account-content-wrapper">
+                &lt;h3 className="account-title">{title}&lt;/h3>
+                &lt;p className="account-amount">{balance}&lt;/p>
+                &lt;p className="account-amount-description">{state}&lt;/p>
             &lt;/div>
-            &lt;div class="account-content-wrapper cta">
-                &lt;button class="transaction-button">View transactions&lt;/button>
+            &lt;div className="account-content-wrapper cta">
+                &lt;button className="transaction-button">
+                    View transactions
+                &lt;/button>
             &lt;/div>
         &lt;/section>
     )

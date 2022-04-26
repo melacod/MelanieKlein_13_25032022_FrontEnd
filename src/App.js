@@ -4,9 +4,8 @@ import AppRouter from './AppRouter'
 /**
  * Main application component
  * @component
- * @category Common
+ * @category Main
  */
-
 function App() {
     return (
         <div className="App">

@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> layout/Thumb.js</title>
+  <title> store.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>layout/Thumb.js</h1>
+                    <h1>store.js</h1>
                 </header>
                 
 
@@ -89,26 +89,26 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Home thumb
- * @component
- * @category Home
- */
-const Thumb = () => {
-    return (
-        &lt;div className="hero-content">
-            &lt;h2 className="sr-only">Promoted Content&lt;/h2>
-            &lt;p className="subtitle">No fees.&lt;/p>
-            &lt;p className="subtitle">No minimum deposit.&lt;/p>
-            &lt;p className="subtitle">High interest rates.&lt;/p>
-            &lt;p className="text">
-                Open a savings account with Argent Bank today!
-            &lt;/p>
-        &lt;/div>
-    )
-}
+            <pre class="prettyprint source linenums"><code>import { configureStore } from '@reduxjs/toolkit'
+import userReducer from './features/user'
 
-export default Thumb
+/**
+ * Redux store
+ * @kind constant
+ * @category Store
+ */
+const store = configureStore({
+    reducer: {
+        user: userReducer,
+    },
+})
+
+// we log the state in the console each time it is modified
+store.subscribe(() => {
+    console.log('New state', store.getState())
+})
+
+export default store
 </code></pre>
         </article>
     </section>

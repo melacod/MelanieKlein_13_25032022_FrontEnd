@@ -1,11 +1,10 @@
+import { Link } from 'react-router-dom'
+
 /**
- * Argent Bank icon
+ * Argent Bank logo
  * @component
  * @category Icons
  */
-
-import { Link } from 'react-router-dom'
-
 const Logo = () => {
     return (
         <Link className="main-nav-logo" to="/">

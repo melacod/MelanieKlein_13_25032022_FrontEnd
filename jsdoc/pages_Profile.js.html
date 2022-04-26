@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> layout/Thumb.js</title>
+  <title> pages/Profile.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>layout/Thumb.js</h1>
+                    <h1>pages/Profile.js</h1>
                 </header>
                 
 
@@ -89,26 +89,139 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Home thumb
+            <pre class="prettyprint source linenums"><code>import Footer from '../layout/Footer'
+import Header from '../layout/Header'
+import Transactions from '../components/Transactions'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectUser } from '../select'
+import { useState } from 'react'
+import { updateProfile } from '../features/user'
+
+/**
+ * User profile page
  * @component
- * @category Home
+ * @category User
  */
-const Thumb = () => {
+
+const Profile = () => {
+    const dispatch = useDispatch()
+
+    // get the user from the store
+    const user = useSelector(selectUser)
+
+    // state variables for update the user profile
+    const [edit, setEdit] = useState(false)
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [message, setMessage] = useState(null)
+
+    // handle user profile edit click
+    const editClick = () => {
+        setMessage(null)
+        setFirstName(user.data.firstName)
+        setLastName(user.data.lastName)
+        setEdit(true)
+    }
+
+    // handle user first name change event
+    const firstNameChange = (event) => {
+        setFirstName(event.target.value)
+    }
+
+    // handle user last name change event
+    const lastNameChange = (event) => {
+        setLastName(event.target.value)
+    }
+
+    // handle user profile update click (save modifications)
+    const saveClick = () => {
+        dispatch(updateProfile(firstName, lastName))
+        // if an error occurred during user profile update, show the error message
+        // else close user profile edition
+        if (user.process.message) {
+            setMessage(user.process.message)
+        } else {
+            setEdit(false)
+        }
+    }
+
+    // handle cancel user profile click
+    const cancelClick = () => {
+        setMessage(null)
+        setEdit(false)
+    }
+
     return (
-        &lt;div className="hero-content">
-            &lt;h2 className="sr-only">Promoted Content&lt;/h2>
-            &lt;p className="subtitle">No fees.&lt;/p>
-            &lt;p className="subtitle">No minimum deposit.&lt;/p>
-            &lt;p className="subtitle">High interest rates.&lt;/p>
-            &lt;p className="text">
-                Open a savings account with Argent Bank today!
-            &lt;/p>
-        &lt;/div>
+        &lt;>
+            &lt;Header />
+            &lt;main className="main bg-dark">
+                &lt;div className="header">
+                    &lt;h1>
+                        Welcome back
+                        {edit ? (
+                            ''
+                        ) : (
+                            &lt;>
+                                &lt;br />
+                                {user.data.firstName} {user.data.lastName}!
+                            &lt;/>
+                        )}
+                    &lt;/h1>
+                    {edit ? (
+                        &lt;>
+                            &lt;div className="edit-profile">
+                                &lt;div className="edit-profile-right">
+                                    &lt;input
+                                        type="text"
+                                        id="firstName"
+                                        onChange={firstNameChange}
+                                        defaultValue={firstName}
+                                    />
+                                &lt;/div>
+                                &lt;div className="edit-profile-left">
+                                    &lt;input
+                                        type="text"
+                                        id="lastName"
+                                        onChange={lastNameChange}
+                                        defaultValue={lastName}
+                                    />
+                                &lt;/div>
+                            &lt;/div>
+                            &lt;div className="edit-profile">
+                                &lt;div className="edit-profile-right">
+                                    &lt;button
+                                        className="save-button"
+                                        onClick={saveClick}
+                                    >
+                                        Save
+                                    &lt;/button>
+                                &lt;/div>
+                                &lt;div className="edit-profile-left">
+                                    &lt;button
+                                        className="cancel-button"
+                                        onClick={cancelClick}
+                                    >
+                                        Cancel
+                                    &lt;/button>
+                                &lt;/div>
+                                {message ? &lt;div>{message}&lt;/div> : ''}
+                            &lt;/div>
+                        &lt;/>
+                    ) : (
+                        &lt;button className="edit-button" onClick={editClick}>
+                            Edit Name
+                        &lt;/button>
+                    )}
+                &lt;/div>
+                &lt;h2 className="sr-only">Accounts&lt;/h2>
+                &lt;Transactions />
+            &lt;/main>
+            &lt;Footer />
+        &lt;/>
     )
 }
 
-export default Thumb
+export default Profile
 </code></pre>
         </article>
     </section>

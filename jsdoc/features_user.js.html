@@ -1,4 +1,95 @@
-import { createSlice } from '@reduxjs/toolkit'
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> features/user.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Argent Bank components</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Common</h2><h3>Components</h3><ul><li><a href="Banner.html">Banner</a></li><li><a href="Footer.html">Footer</a></li><li><a href="Header.html">Header</a></li><li><a href="MainBlack.html">MainBlack</a></li><li><a href="Navigation.html">Navigation</a></li></ul></div><div class="category"><h2>Home</h2><h3>Components</h3><ul><li><a href="Card.html">Card</a></li><li><a href="Cards.html">Cards</a></li><li><a href="Home.html">Home</a></li><li><a href="Thumb.html">Thumb</a></li></ul></div><div class="category"><h2>Icons</h2><h3>Components</h3><ul><li><a href="Logo.html">Logo</a></li></ul></div><div class="category"><h2>Login</h2><h3>Components</h3><ul><li><a href="Login.html">Login</a></li><li><a href="LoginForm.html">LoginForm</a></li></ul></div><div class="category"><h2>Main</h2><h3>Components</h3><ul><li><a href="App.html">App</a></li><li><a href="AppRouter.html">AppRouter</a></li></ul></div><div class="category"><h2>Selector</h2><h3>Global</h3><ul><li><a href="global.html#selectUser">selectUser</a></li></ul></div><div class="category"><h2>Store</h2><h3>Global</h3><ul><li><a href="global.html#store">store</a></li></ul></div><div class="category"><h2>Url</h2><h3>Global</h3><ul><li><a href="global.html#BACKEND_URL">BACKEND_URL</a></li></ul></div><div class="category"><h2>User</h2><h3>Components</h3><ul><li><a href="Profile.html">Profile</a></li><li><a href="Transaction.html">Transaction</a></li><li><a href="Transactions.html">Transactions</a></li></ul></div><div class="category"><h2>UserState</h2><h3>Global</h3><ul><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#signin">signin</a></li><li><a href="global.html#signout">signout</a></li><li><a href="global.html#updateProfile">updateProfile</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>features/user.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { createSlice } from '@reduxjs/toolkit'
 import { selectUser } from '../select'
 import BACKEND_URL from './url'
 
@@ -141,7 +232,7 @@ export function signout() {
         const user = selectUser(getState())
 
         // if a user is connected (have a token), we signout him
-        if (user && user.token) {
+        if (user &amp;&amp; user.token) {
             dispatch(actions.signout())
         }
     }
@@ -160,7 +251,7 @@ export function updateProfile(firstName, lastName) {
         const user = selectUser(getState())
 
         // if a user is connected (have a token), we update his profile
-        if (user && user.token) {
+        if (user &amp;&amp; user.token) {
             try {
                 // we call backend API to update the user profile
                 //      => using method PUT
@@ -225,7 +316,7 @@ const { actions, reducer } = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        // fetching action & reducer
+        // fetching action &amp; reducer
         fetching: (draft) => {
             if (draft.process.status === 'void') {
                 // no status => move to pending
@@ -247,7 +338,7 @@ const { actions, reducer } = createSlice({
             return
         },
 
-        // resolved action & reducer
+        // resolved action &amp; reducer
         resolved: (draft, action) => {
             // pending or updating => move to resolved
             if (
@@ -282,7 +373,7 @@ const { actions, reducer } = createSlice({
             return
         },
 
-        // rejected action & reducer
+        // rejected action &amp; reducer
         rejected: (draft, action) => {
             // pending or updating => move to rejected
             if (
@@ -305,7 +396,7 @@ const { actions, reducer } = createSlice({
             return
         },
 
-        // signout action & reducer
+        // signout action &amp; reducer
         signout: (draft) => {
             // we clean user information and credentials
             draft.process.status = 'void'
@@ -318,7 +409,7 @@ const { actions, reducer } = createSlice({
             draft.token = null
         },
 
-        // update action & reducer
+        // update action &amp; reducer
         update: (draft, action) => {
             // if status is 200 => we have new user profile
             // else we have an error message
@@ -334,3 +425,33 @@ const { actions, reducer } = createSlice({
 })
 
 export default reducer
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

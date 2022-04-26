@@ -9,19 +9,22 @@ import { updateProfile } from '../features/user'
 /**
  * User profile page
  * @component
- * @category Profile
+ * @category User
  */
 
 const Profile = () => {
     const dispatch = useDispatch()
 
+    // get the user from the store
     const user = useSelector(selectUser)
 
+    // state variables for update the user profile
     const [edit, setEdit] = useState(false)
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [message, setMessage] = useState(null)
 
+    // handle user profile edit click
     const editClick = () => {
         setMessage(null)
         setFirstName(user.data.firstName)
@@ -29,16 +32,21 @@ const Profile = () => {
         setEdit(true)
     }
 
+    // handle user first name change event
     const firstNameChange = (event) => {
         setFirstName(event.target.value)
     }
 
+    // handle user last name change event
     const lastNameChange = (event) => {
         setLastName(event.target.value)
     }
 
+    // handle user profile update click (save modifications)
     const saveClick = () => {
         dispatch(updateProfile(firstName, lastName))
+        // if an error occurred during user profile update, show the error message
+        // else close user profile edition
         if (user.process.message) {
             setMessage(user.process.message)
         } else {
@@ -46,6 +54,7 @@ const Profile = () => {
         }
     }
 
+    // handle cancel user profile click
     const cancelClick = () => {
         setMessage(null)
         setEdit(false)

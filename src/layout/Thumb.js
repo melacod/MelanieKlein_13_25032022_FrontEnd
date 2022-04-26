@@ -1,9 +1,8 @@
 /**
- * Page thumb
+ * Home thumb
  * @component
- * @category Common
+ * @category Home
  */
-
 const Thumb = () => {
     return (
         <div className="hero-content">

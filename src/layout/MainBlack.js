@@ -1,11 +1,10 @@
 import LoginForm from '../components/LoginForm'
 
 /**
- * Page mainBlack
+ * Main with black background
  * @component
  * @category Common
  */
-
 const MainBlack = () => {
     return (
         <main className="main bg-dark">

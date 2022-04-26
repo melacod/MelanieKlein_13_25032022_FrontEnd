@@ -1,5 +1,5 @@
 /**
- * Page footer
+ * Footer
  * @component
  * @category Common
  */

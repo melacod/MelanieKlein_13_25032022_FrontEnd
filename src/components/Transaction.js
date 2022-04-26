@@ -1,9 +1,8 @@
 /**
- * User key data transaction
+ * User transaction
  * @component
  * @category User
  */
-
 const Transaction = ({ title, balance, state }) => {
     return (
         <section className="account">

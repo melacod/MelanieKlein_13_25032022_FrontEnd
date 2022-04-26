@@ -1,11 +1,10 @@
 import Thumb from './Thumb'
 
 /**
- * Page banner
+ * Banner
  * @component
  * @category Common
  */
-
 const Banner = () => {
     return (
         <div className="hero">

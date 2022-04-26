@@ -1,11 +1,10 @@
 import Card from './Card'
 
 /**
- * User key data cards
+ * Home cards
  * @component
  * @category Home
  */
-
 const Cards = () => {
     return (
         <div className="features">

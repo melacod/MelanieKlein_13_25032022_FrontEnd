@@ -6,7 +6,7 @@ import { selectUser } from '../select'
 import { signout } from '../features/user'
 
 /**
- * Page navigation
+ * Navigation bar
  * @component
  * @category Common
  */
@@ -14,14 +14,17 @@ const Navigation = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    // get the user from the store
     const user = useSelector(selectUser)
 
+    // handle signout action
     const handleSignout = (event) => {
         event.preventDefault()
         dispatch(signout())
         navigate('/')
     }
 
+    // if a user is connected, show user icon and signout link
     if (user && user.token) {
         return (
             <div>
@@ -37,6 +40,7 @@ const Navigation = () => {
         )
     }
 
+    // if no user connected, show signin link
     return (
         <div>
             <Link to="/login" className="main-nav-item">

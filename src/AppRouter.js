@@ -6,9 +6,8 @@ import Profile from './pages/Profile'
 /**
  * Application routes
  * @component
- * @category Common
+ * @category Main
  */
-
 const AppRouter = () => {
     return (
         <Router>

@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> layout/Thumb.js</title>
+  <title> pages/Login.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>layout/Thumb.js</h1>
+                    <h1>pages/Login.js</h1>
                 </header>
                 
 
@@ -89,26 +89,28 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Home thumb
+            <pre class="prettyprint source linenums"><code>import LoginForm from '../components/LoginForm'
+import Footer from '../layout/Footer'
+import Header from '../layout/Header'
+
+/**
+ * Login page
  * @component
- * @category Home
+ * @category Login
  */
-const Thumb = () => {
+const Login = () => {
     return (
-        &lt;div className="hero-content">
-            &lt;h2 className="sr-only">Promoted Content&lt;/h2>
-            &lt;p className="subtitle">No fees.&lt;/p>
-            &lt;p className="subtitle">No minimum deposit.&lt;/p>
-            &lt;p className="subtitle">High interest rates.&lt;/p>
-            &lt;p className="text">
-                Open a savings account with Argent Bank today!
-            &lt;/p>
-        &lt;/div>
+        &lt;>
+            &lt;Header />
+            &lt;main className="main bg-dark">
+                &lt;LoginForm />
+            &lt;/main>
+            &lt;Footer />
+        &lt;/>
     )
 }
 
-export default Thumb
+export default Login
 </code></pre>
         </article>
     </section>

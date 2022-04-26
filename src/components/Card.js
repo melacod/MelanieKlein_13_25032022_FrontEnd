@@ -1,9 +1,8 @@
 /**
- * User key data card
+ * Home card
  * @component
  * @category Home
  */
-
 const Card = ({ src, presentation, details }) => {
     return (
         <>

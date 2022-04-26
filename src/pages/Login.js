@@ -7,7 +7,6 @@ import Header from '../layout/Header'
  * @component
  * @category Login
  */
-
 const Login = () => {
     return (
         <>
